@@ -17,13 +17,19 @@ M.general = {
   },
   v = {
     [">"] = { ">gv", "indent"},
+      --  format with conform
+    ["<leader>fm"] = {
+      function()
+        require("conform").format({ async = true, lsp_fallback = true })
+      end,
+      "format selected lines",
+    }
   },
 }
 map("n", "<A-j>", ":m .+1<CR>==", {desc = "move line up"}) -- move line up(n)
 map("n", "<A-k>", ":m .-2<CR>==", { desc = "move line down"}) -- move line down(n)
 map("v", "<A-j>", ":m '>+1<CR>gv=gv", {desc = "move line up"}) -- move line up(v)
 map("v", "<A-k>", ":m '<-2<CR>gv=gv", {desc = "move line down"}) -- move line down(v)
-
 -- more keybinds!
 
 return M
