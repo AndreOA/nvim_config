@@ -13,6 +13,7 @@ M.treesitter = {
     "markdown",
     "markdown_inline",
     "ruby",
+    "go"
   },
   indent = {
     enable = true,
@@ -41,6 +42,9 @@ M.mason = {
 
     -- shell stuff
     "shfmt",
+
+    -- golang
+    "gopls",
   },
 }
 

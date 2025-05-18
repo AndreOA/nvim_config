@@ -32,4 +32,25 @@ map("v", "<A-j>", ":m '>+1<CR>gv=gv", {desc = "move line up"}) -- move line up(v
 map("v", "<A-k>", ":m '<-2<CR>gv=gv", {desc = "move line down"}) -- move line down(v)
 -- more keybinds!
 
+--golang keybinds
+
+M.gonvim = {
+  plugin = true,
+  n = {
+    ["<leader>gsj"] = {
+      "<cmd> GoTagAdd json <CR>",
+      "Add json struct tags"
+    },
+    ["<leader>gsy"] = {
+      "<cmd> GoTagAdd yaml <CR>",
+      "Add yaml struct tags"
+    },
+    ["<leader>gsi"] = {
+      "<cmd> GoIfErr <CR>",
+      "Add err handle boiler plater"
+    }
+
+  }
+}
+
 return M

@@ -40,6 +40,29 @@ local handlers = {
     )
 }
 
+-- golang configs
+lspconfig.gopls.setup {
+  cmd = { "gopls" },
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = {
+    "go",
+    "gomod",
+    "gowork",
+    "gotmpl"
+  },
+  root_dir = lspconfig.util.root_pattern("go.work", ".git", "go.mod"),
+  settings = {
+    gopls = {
+      completeUnimported = true,
+      usePlaceholders = true,
+      analyses = {
+        unusedparams = true,
+      }
+    }
+  }
+
+}
 
 
 

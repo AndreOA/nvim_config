@@ -11,6 +11,7 @@ local options = {
 
 		sh = { "shfmt" },
     ruby = { "rubocop" },
+    go = { "goimports", "gofmt", "golines" },
 	},
 
   -- adding same formatter for multiple filetypes can look too much work for some
