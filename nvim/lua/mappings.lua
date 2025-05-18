@@ -1,4 +1,5 @@
 ---@type MappingsTable
+require "nvchad.mappings"
 local M = {}
 local map = vim.keymap.set
 
