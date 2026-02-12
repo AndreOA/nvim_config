@@ -10,10 +10,11 @@ M.treesitter = {
     "typescript",
     "tsx",
     "c",
+    "yaml",
     "markdown",
     "markdown_inline",
     "ruby",
-    "go"
+    "go",
   },
   indent = {
     enable = true,
@@ -62,6 +63,10 @@ M.nvimtree = {
       },
     },
   },
+}
+
+M.codecompanion = {
+
 }
 
 return M

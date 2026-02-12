@@ -19,7 +19,7 @@ vim.diagnostic.config({
 
 -- RUBOCOP
 vim.lsp.config("rubocop", {
-  cmd = { "rubocop", "--lsp" },
+  cmd = { "bundle", "exec", "rubocop", "--lsp" },
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "ruby" },

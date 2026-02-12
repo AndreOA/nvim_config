@@ -18,12 +18,22 @@ return {
     "williamboman/mason.nvim",
     opts = require "configs.overrides".mason
   },
-
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = require "configs.overrides".treesitter
-  },
+    opts = function(_, opts)
+      -- Force Treesitter to use clang instead of GCC 15
+      require("nvim-treesitter.install").compilers = { "zig" }
 
+      -- Keep your existing ensure_installed list
+      opts.ensure_installed = vim.tbl_extend("force", opts.ensure_installed or {}, {
+        "yaml",
+        "lua",
+      })
+    end,
+    lazy = false,
+    enabled = true,
+    build = ':TSUpdate'
+  },
   {
     "nvim-tree/nvim-tree.lua",
     opts = require "configs.overrides".nvimtree
@@ -41,6 +51,33 @@ return {
     event = {"CmdlineEnter"},
     ft = {"go", 'gomod'},
     build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
+  },
+  {
+    "olimorris/codecompanion.nvim",
+    version = "^18.0.0",
+    enabled = true,
+    lazy = false,
+    opts = require "configs.overrides".codecompanion,
+    dependencies = {
+      { "nvim-lua/plenary.nvim", branch = "master" },
+      "nvim-treesitter/nvim-treesitter",
+    },
+  },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "codecompanion" }
+  },
+  {
+    "HakonHarnes/img-clip.nvim",
+    opts = {
+      filetypes = {
+        codecompanion = {
+          prompt_for_file_name = false,
+          template = "[Image]($FILE_PATH)",
+          use_absolute_path = true,
+        },
+      },
+    },
   },
 
   -- test new blink

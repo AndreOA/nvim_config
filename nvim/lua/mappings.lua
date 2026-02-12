@@ -5,7 +5,7 @@ require "nvchad.mappings"
 local map = vim.keymap.set
 
 map({ "v" }, "<leader>fm", function()
-  require("conform").format { lsp_fallback = true }
+  require("conform").format { lsp_fallback = true, timeout_ms = 5000 }
 end, { desc = "format selected lines" })
 map("v", ">", ">gv", {desc= "indent right"})
 map("v", "<", "<gv", {desc= "indent left"})
