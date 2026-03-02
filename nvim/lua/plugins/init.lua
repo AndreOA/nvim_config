@@ -1,11 +1,16 @@
 return {
-  -- Override plugin definition options
+  {
+    "stevearc/conform.nvim",
+    -- event = 'BufWritePre', -- uncomment for format on save
+    opts = require "configs.conform",
+  },
 
+  -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
     config = function()
       require "configs.lspconfig"
-    end, -- Override to setup mason-lspconfig
+    end,
   },
 
   -- override plugin configs
@@ -13,33 +18,14 @@ return {
     "williamboman/mason.nvim",
     opts = require "configs.overrides".mason
   },
-
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = require "configs.overrides".treesitter
+  { -- Highlight, edit, and navigate code
+    'nvim-treesitter/nvim-treesitter',
+    opts = require "configs.overrides".treesitter,
+    branch = 'main',
   },
-
   {
     "nvim-tree/nvim-tree.lua",
     opts = require "configs.overrides".nvimtree
-  },
-
-  -- Install a plugin
-  {
-    "max397574/better-escape.nvim",
-    event = "InsertEnter",
-    config = function()
-      require("better_escape").setup()
-    end,
-  },
-
-  {
-    "stevearc/conform.nvim",
-    --  for users those who want auto-save conform + lazyloading!
-    -- event = "BufWritePre"
-    config = function()
-      require "configs.conform"
-    end,
   },
   {
     "ray-x/go.nvim",
@@ -55,17 +41,54 @@ return {
     ft = {"go", 'gomod'},
     build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
-  -- To make a plugin not be loaded
-  -- {
-  --   "NvChad/nvim-colorizer.lua",
-  --   enabled = false
-  -- },
+  {
+    "olimorris/codecompanion.nvim",
+    version = "^19.0.0",
+    enabled = true,
+    lazy = false,
+    opts = require "configs.overrides".codecompanion,
+    dependencies = {
+      { "nvim-lua/plenary.nvim", branch = "master" },
+      {
+        "nvim-treesitter/nvim-treesitter",
+        lazy = false,
+        build = ":TSUpdate",
+      },
+    },
+  },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "codecompanion" }
+  },
+  {
+    "HakonHarnes/img-clip.nvim",
+    opts = {
+      filetypes = {
+        codecompanion = {
+          prompt_for_file_name = false,
+          template = "[Image]($FILE_PATH)",
+          use_absolute_path = true,
+        },
+      },
+    },
+  },
+  {
+  "ellisonleao/dotenv.nvim",
+    lazy = false,
+    -- I don't know why, but this is required or it won't load.
+    opts = {},
+  },
 
-  -- All NvChad plugins are lazy-loaded by default
-  -- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
-  -- If you want a plugin to load on startup, add `lazy = false` to a plugin spec, for example
+  -- test new blink
+  -- { import = "nvchad.blink.lazyspec" },
+
   -- {
-  --   "mg979/vim-visual-multi",
-  --   lazy = false,
-  -- }
+  -- 	"nvim-treesitter/nvim-treesitter",
+  -- 	opts = {
+  -- 		ensure_installed = {
+  -- 			"vim", "lua", "vimdoc",
+  --      "html", "css"
+  -- 		},
+  -- 	},
+  -- },
 }
