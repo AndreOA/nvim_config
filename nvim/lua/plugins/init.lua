@@ -18,21 +18,10 @@ return {
     "williamboman/mason.nvim",
     opts = require "configs.overrides".mason
   },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      -- Force Treesitter to use clang instead of GCC 15
-      require("nvim-treesitter.install").compilers = { "zig" }
-
-      -- Keep your existing ensure_installed list
-      opts.ensure_installed = vim.tbl_extend("force", opts.ensure_installed or {}, {
-        "yaml",
-        "lua",
-      })
-    end,
-    lazy = false,
-    enabled = true,
-    build = ':TSUpdate'
+  { -- Highlight, edit, and navigate code
+    'nvim-treesitter/nvim-treesitter',
+    opts = require "configs.overrides".treesitter,
+    branch = 'main',
   },
   {
     "nvim-tree/nvim-tree.lua",
@@ -54,13 +43,17 @@ return {
   },
   {
     "olimorris/codecompanion.nvim",
-    version = "^18.0.0",
+    version = "^19.0.0",
     enabled = true,
     lazy = false,
     opts = require "configs.overrides".codecompanion,
     dependencies = {
       { "nvim-lua/plenary.nvim", branch = "master" },
-      "nvim-treesitter/nvim-treesitter",
+      {
+        "nvim-treesitter/nvim-treesitter",
+        lazy = false,
+        build = ":TSUpdate",
+      },
     },
   },
   {
@@ -78,6 +71,12 @@ return {
         },
       },
     },
+  },
+  {
+  "ellisonleao/dotenv.nvim",
+    lazy = false,
+    -- I don't know why, but this is required or it won't load.
+    opts = {},
   },
 
   -- test new blink

@@ -24,6 +24,26 @@ M.treesitter = {
   },
 }
 
+M.codecompanion = {
+  interactions = {
+        --NOTE: Change the adapter as required
+        chat = { adapter = "claude_code" },
+        inline = { adapter = "claude_code" },
+        agent = { adapter = "claude_code"}
+  },
+  adapters = {
+      acp = {
+        claude_code = function()
+          return require("codecompanion.adapters").extend("claude_code", {
+            env = {
+              CLAUDE_CODE_OAUTH_TOKEN = os.getenv("CLAUDE_CODE_OAUTH_TOKEN"),
+            },
+          })
+        end,
+      },
+    },
+}
+
 M.mason = {
   ensure_installed = {
     -- lua stuff
@@ -63,10 +83,6 @@ M.nvimtree = {
       },
     },
   },
-}
-
-M.codecompanion = {
-
 }
 
 return M

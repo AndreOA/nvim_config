@@ -5,6 +5,9 @@ export PATH=/home/aatalaia/.local/bin:$PATH
   export ZSH=~/.oh-my-zsh
 
 export PATH=$PATH:/usr/local/go/bin
+export RBENV_ROOT="$HOME/.rbenv"
+export PATH="$RBENV_ROOT/bin:$PATH"
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
@@ -63,6 +66,7 @@ plugins=(
   git
   zsh-syntax-highlighting
   zsh-autosuggestions
+  z
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -74,7 +78,7 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-Preferred editor for local and remote sessions
+# Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
 else
@@ -95,7 +99,10 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-eval "$(~/.rbenv/bin/rbenv init - bash)"
+eval "$(rbenv init - zsh)"
+
+eval "$(mise activate zsh)"
+
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
