@@ -96,34 +96,29 @@ vim.lsp.config("solargraph", {
         local items = result.items or result
         if type(items) == "table" then
           for _, item in ipairs(items) do
-            if type(item) == "table" then
-              -- Ensure string types across all cmp-matched properties
-              if item.label and type(item.label) ~= "string" then
-                item.label = tostring(item.label or "")
-              end
-              if item.insertText and type(item.insertText) ~= "string" then
-                item.insertText = tostring(item.insertText or "")
-              end
-              if item.filterText and type(item.filterText) ~= "string" then
-                item.filterText = tostring(item.filterText or "")
-              end
-              if item.sortText and type(item.sortText) ~= "string" then
-                item.sortText = tostring(item.sortText or "")
-              end
-
-              -- Normalize nested documentation objects
-              if item.documentation then
-                if type(item.documentation) == "table" then
-                  item.documentation = item.documentation.value or tostring(item.documentation)
-                elseif type(item.documentation) ~= "string" then
-                  item.documentation = tostring(item.documentation)
-                end
+            if type(item) == "table" and item.documentation then
+              if type(item.documentation) == "table" then
+                item.documentation = item.documentation.value or tostring(item.documentation)
+              elseif type(item.documentation) ~= "string" then
+                item.documentation = tostring(item.documentation)
               end
             end
           end
         end
       end
       return vim.lsp.handlers["textDocument/completion"](err, result, ctx, config)
+    end,
+    ["completionItem/resolve"] = function(err, result, ctx, config)
+      if not err and result and type(result) == "table" then
+        if result.documentation then
+          if type(result.documentation) == "table" then
+            result.documentation = result.documentation.value or tostring(result.documentation)
+          elseif type(result.documentation) ~= "string" then
+            result.documentation = tostring(result.documentation)
+          end
+        end
+      end
+      return vim.lsp.handlers["completionItem/resolve"](err, result, ctx, config)
     end,
   },
   init_options = {

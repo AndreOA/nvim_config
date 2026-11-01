@@ -78,46 +78,27 @@ return {
     -- I don't know why, but this is required or it won't load.
     opts = {},
   },
--- nvim-cmp setup (Preserves NvChad defaults)
   {
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
-      -- Optional: Set to false if you want to completely disable float documentation windows
-      -- opts.documentation = false
+      -- Safely handle string evaluation across different Neovim runtime versions
+      opts.formatting = opts.formatting or {}
+      local orig_format = opts.formatting.format
+
+      opts.formatting.format = function(entry, vim_item)
+        if orig_format then
+          vim_item = orig_format(entry, vim_item)
+        end
+
+        -- Convert any non-string properties to string types
+        vim_item.word = type(vim_item.word) == "string" and vim_item.word or tostring(vim_item.word or "")
+        vim_item.abbr = type(vim_item.abbr) == "string" and vim_item.abbr or tostring(vim_item.abbr or "")
+        vim_item.menu = type(vim_item.menu) == "string" and vim_item.menu or tostring(vim_item.menu or "")
+
+        return vim_item
+      end
+
       return opts
-    end,
-  },
-
-  -- nvim-autopairs setup with safety guards
-  {
-    "windwp/nvim-autopairs",
-    opts = {
-      fast_wrap = {},
-      disable_filetype = { "TelescopePrompt", "vim" },
-    },
-    config = function(_, opts)
-      local npairs = require("nvim-autopairs")
-      npairs.setup(opts)
-
-      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-      local cmp = require("cmp")
-
-      cmp.event:on("confirm_done", function(event)
-        -- Guard against missing or vim.NIL event payloads from Solargraph
-        if not event or not event.entry or event.entry == vim.NIL then
-          return
-        end
-
-        local completion_item = event.entry:get_completion_item()
-        if not completion_item or completion_item == vim.NIL or type(completion_item) ~= "table" then
-          return
-        end
-
-        local handler = cmp_autopairs.on_confirm_done()
-        if handler then
-          handler(event)
-        end
-      end)
     end,
   },
 
