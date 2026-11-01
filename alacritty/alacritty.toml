@@ -1,0 +1,372 @@
+# ============================================================================
+# GENERAL
+# ============================================================================
+[general]
+
+# Directory Alacritty opens new windows in. Defaults to the parent process's CWD.
+# working_directory = "~"
+
+# Live config reload — re-reads this file when you save it, no restart needed.
+live_config_reload = true
+
+# Extra config files to import. Paths are relative to this file. Useful for
+# splitting themes/keybinds into separate files.
+# import = ["~/.config/alacritty/themes/tokyonight.toml"]
+
+
+# ============================================================================
+# ENVIRONMENT
+# ============================================================================
+# Environment variables passed to the shell. TERM matters: "alacritty" is
+# correct but some remote systems lack the terminfo, in which case
+# "xterm-256color" is the safe fallback.
+[env]
+TERM = "alacritty"
+
+[terminal.shell]
+program = "zellij"
+
+# ============================================================================
+# WINDOW
+# ============================================================================
+[window]
+
+# Initial window size in cells (columns x lines), not pixels.
+dimensions = { columns = 140, lines = 40 }
+
+# Window position in pixels from top-left of the screen. Omit or set to "None"
+# to let the WM decide.
+# position = { x = 100, y = 100 }
+
+# Padding inside the window, in pixels. Applied on each side.
+padding = { x = 10, y = 10 }
+
+# If true, padding scales with font size changes (Ctrl+= / Ctrl+-).
+dynamic_padding = true
+
+# Window decorations:
+#   "Full"            — title bar + borders (default)
+#   "None"            — borderless
+#   "Transparent"     — macOS only, transparent title bar
+#   "Buttonless"      — macOS only, no buttons
+decorations = "None"
+
+# Background opacity. 0.0 = fully transparent, 1.0 = opaque. Requires a
+# compositor on Linux to actually show through.
+opacity = 1.0
+
+# Blur background behind the window. macOS and KDE Wayland only.
+blur = false
+
+# Startup mode:
+#   "Windowed", "Maximized", "Fullscreen"
+#   "SimpleFullscreen" (macOS only)
+startup_mode = "Maximized"
+
+# Window title shown in the title bar.
+title = "Alacritty"
+
+# If true, the title updates dynamically based on the running program.
+dynamic_title = true
+
+# X11/Wayland window class. Affects WM rules and taskbar grouping.
+class = { instance = "Alacritty", general = "Alacritty" }
+
+# Decoration theme variant. "Dark", "Light", or "None" (system default).
+decorations_theme_variant = "Dark"
+
+# Wayland-only: "client" (Alacritty draws decorations) or "server" (compositor does).
+# resize_increments = true       # Resize in font-cell increments instead of pixels
+# option_as_alt = "OnlyLeft"      # macOS: treat Option as Alt for keybinds
+
+
+# ============================================================================
+# SCROLLING
+# ============================================================================
+# NOTE: when running zellij, zellij owns the scrollback. These settings only
+# matter when you exit zellij and use a bare shell.
+[scrolling]
+
+# Maximum scrollback lines retained.
+history = 10000
+
+# Lines scrolled per "tick" of the mouse wheel or keybind.
+multiplier = 3
+
+
+# ============================================================================
+# FONT
+# ============================================================================
+[font]
+
+# Base font size in points.
+size = 11.5
+
+# Pixel offset between glyphs. Positive y = more line spacing.
+offset = { x = 0, y = 0 }
+
+# Glyph offset within each cell. Useful for nudging fonts that sit oddly.
+glyph_offset = { x = 0, y = 0 }
+
+# On macOS, render with thinner strokes (matches system rendering).
+# builtin_box_drawing = true     # Use Alacritty's built-in box-drawing chars
+                                  # instead of the font's. Cleaner alignment.
+
+[font.normal]
+family = "CodeNewRoman Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "CodeNewRoman Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "CodeNewRoman Nerd Font"
+style = "Italic"
+
+[font.bold_italic]
+family = "CodeNewRoman Nerd Font"
+style = "Bold Italic"
+
+
+# ============================================================================
+# COLORS — Tokyo Night palette (matches the theme you've been using in zellij)
+# ============================================================================
+[colors.primary]
+background = "#1a1b26"
+foreground = "#c0caf5"
+# dim_foreground   = "#a9b1d6"
+# bright_foreground = "#c0caf5"
+
+[colors.cursor]
+text   = "#1a1b26"
+cursor = "#c0caf5"
+
+# Cursor shown when the window is unfocused.
+[colors.vi_mode_cursor]
+text   = "#1a1b26"
+cursor = "#7aa2f7"
+
+# Selection highlight.
+[colors.selection]
+text       = "CellForeground"   # special: keep the cell's foreground color
+background = "#283457"
+
+# Search match highlights.
+[colors.search.matches]
+foreground = "#1a1b26"
+background = "#a9b1d6"
+
+[colors.search.focused_match]
+foreground = "#1a1b26"
+background = "#ff9e64"
+
+# Hint labels (the letters shown when you trigger a hint keybind).
+[colors.hints.start]
+foreground = "#1a1b26"
+background = "#e0af68"
+
+[colors.hints.end]
+foreground = "#1a1b26"
+background = "#a9b1d6"
+
+# 16-color ANSI palette.
+[colors.normal]
+black   = "#15161e"
+red     = "#f7768e"
+green   = "#9ece6a"
+yellow  = "#e0af68"
+blue    = "#7aa2f7"
+magenta = "#bb9af7"
+cyan    = "#7dcfff"
+white   = "#a9b1d6"
+
+[colors.bright]
+black   = "#414868"
+red     = "#f7768e"
+green   = "#9ece6a"
+yellow  = "#e0af68"
+blue    = "#7aa2f7"
+magenta = "#bb9af7"
+cyan    = "#7dcfff"
+white   = "#c0caf5"
+
+# Indexed colors override specific palette slots (256-color range).
+# [[colors.indexed_colors]]
+# index = 16
+# color = "#ff9e64"
+
+
+# ============================================================================
+# BELL
+# ============================================================================
+[bell]
+
+# Animation curve for the visual bell:
+#   "Ease", "EaseOut", "EaseOutSine", "EaseOutQuad",
+#   "EaseOutCubic", "EaseOutQuart", "EaseOutQuint", "EaseOutExpo", "Linear"
+animation = "EaseOutExpo"
+
+# Duration of the visual bell flash in milliseconds. 0 disables it.
+duration = 0
+
+# Color of the visual flash.
+color = "#ffffff"
+
+# Shell command run when the bell triggers. Useful for desktop notifications.
+# command = { program = "notify-send", args = ["Alacritty bell"] }
+
+
+# ============================================================================
+# CURSOR
+# ============================================================================
+[cursor]
+
+# Shape: "Block", "Underline", or "Beam"
+# Blinking: "Never", "Off" (supported but off by default), "On", "Always"
+style = { shape = "Block", blinking = "Off" }
+
+# Vi-mode cursor (when you press Ctrl+Shift+Space to enter vi mode).
+vi_mode_style = { shape = "Block", blinking = "Off" }
+
+# Blink interval in ms.
+blink_interval = 750
+
+# Stop blinking after this many seconds of inactivity. 0 = never stop.
+blink_timeout = 5
+
+# Render the cursor as hollow when the window is unfocused.
+unfocused_hollow = true
+
+# Cursor thickness, as a fraction of cell width (for Beam/Underline).
+thickness = 0.15
+
+
+# ============================================================================
+# TERMINAL / SHELL
+# ============================================================================
+# When this block is set, Alacritty runs `program` instead of your login shell.
+# We're leaving it commented because zellij is better launched from your
+# .bashrc — that way zellij gets the full PATH from your shell, and you have a
+# fallback if zellij ever breaks. See note at the bottom.
+[terminal]
+# osc52 controls clipboard access via OSC 52 escape sequences:
+#   "Disabled", "OnlyCopy", "OnlyPaste", "CopyPaste"
+osc52 = "OnlyCopy"
+
+# [terminal.shell]
+# program = "/home/YOUR_USERNAME/.local/bin/zellij"
+# args = ["attach", "-c", "main"]
+
+
+# ============================================================================
+# MOUSE
+# ============================================================================
+[mouse]
+
+# Hide the mouse cursor while typing.
+hide_when_typing = true
+
+# Mouse bindings. See keyboard.bindings below for the full action list.
+# [[mouse.bindings]]
+# mouse = "Right"
+# action = "PasteSelection"
+
+
+# ============================================================================
+# SELECTION
+# ============================================================================
+[selection]
+
+# Characters considered "word separators" for double-click word selection.
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+
+# Copy selection to clipboard automatically (in addition to primary on Linux).
+save_to_clipboard = false
+
+
+# ============================================================================
+# HINTS
+# ============================================================================
+# Hints let you act on text patterns (URLs, file paths, hashes) via keyboard.
+# Press the binding, then Alacritty overlays letters on each match — type the
+# letters to trigger the action.
+[hints]
+
+# Characters used to label hints, in order of preference.
+alphabet = "jfkdls;ahgurieowpq"
+
+[[hints.enabled]]
+# Regex matching what to highlight. This one matches URLs.
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\\u0000-\\u001F\\u007F-\\u009F<>\"\\s{-}\\^⟨⟩`]+"
+# Where to look: "Always", "OnlyVisible", or omit for default.
+hyperlinks = true
+# Action when the hint is selected.
+command = "xdg-open"
+# Modifiers + key to trigger the hint mode.
+binding = { key = "U", mods = "Control|Shift" }
+# Buttons can also trigger.
+mouse = { enabled = true, mods = "Control" }
+# How to highlight matches before you commit.
+post_processing = true
+
+
+# ============================================================================
+# KEYBOARD BINDINGS
+# ============================================================================
+# Each binding has:
+#   key     — the key (or "Char(\"x\")" for a literal char)
+#   mods    — modifiers: "Control", "Shift", "Alt", "Super", joined with "|"
+#   action  — built-in action, OR
+#   chars   — string sent to the terminal, OR
+#   command — external program to run
+#
+# A handful of common ones; Alacritty has sensible defaults so you only need
+# to add overrides.
+[keyboard]
+
+[[keyboard.bindings]]
+key = "V"
+mods = "Control|Shift"
+action = "Paste"
+
+[[keyboard.bindings]]
+key = "C"
+mods = "Control|Shift"
+action = "Copy"
+
+[[keyboard.bindings]]
+key = "Plus"
+mods = "Control"
+action = "IncreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Minus"
+mods = "Control"
+action = "DecreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Key0"
+mods = "Control"
+action = "ResetFontSize"
+
+# Toggle fullscreen
+[[keyboard.bindings]]
+key = "F11"
+action = "ToggleFullscreen"
+
+# Spawn a new window with the same config
+[[keyboard.bindings]]
+key = "N"
+mods = "Control|Shift"
+action = "CreateNewWindow"
+
+# Useful built-in actions you can wire to keys:
+#   Paste, Copy, PasteSelection, ClearLogNotice, ClearSelection
+#   IncreaseFontSize, DecreaseFontSize, ResetFontSize
+#   ScrollPageUp, ScrollPageDown, ScrollLineUp, ScrollLineDown
+#   ScrollToTop, ScrollToBottom, ClearHistory
+#   ToggleFullscreen, ToggleSimpleFullscreen (macOS), Hide, HideOtherApplications
+#   Minimize, Quit, ToggleViMode, SearchForward, SearchBackward
+#   SpawnNewInstance, CreateNewWindow
+#   ReceiveChar, None

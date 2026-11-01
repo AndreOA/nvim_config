@@ -17,3 +17,16 @@ map("v", "<A-k>", ":m '<-2<CR>gv=gv", {desc = "move line down"}) -- move line do
 -- more keybinds!
 
 --golang keybinds
+
+-- CodeCompanion
+map("n", "<leader>ac", "<cmd>CodeCompanionChat toggle<CR>", { desc = "AI toggle chat" })
+map("n", "<leader>aa", "<cmd>CodeCompanionActions<CR>", { desc = "AI actions" })
+map("n", "<leader>ab", "<cmd>CodeCompanionChat add<CR>", { desc = "AI add buffer to chat" })
+map("v", "<leader>ac", "<cmd>CodeCompanionChat add<CR>", { desc = "AI add selection to chat" })
+map({ "n", "v" }, "<leader>ai", "<cmd>CodeCompanion<CR>", { desc = "AI inline assist" })
+map({"n", "v" }, "<leader>aa", "<cmd>CodeCompanionActions<CR>", { desc = "AI actions" })
+
+-- General keybinds
+map({"n", "v"}, "p", '"0p')
+map({"n", "v"}, '"0p', "p")
+

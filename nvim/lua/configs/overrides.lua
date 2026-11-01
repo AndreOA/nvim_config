@@ -42,6 +42,33 @@ M.codecompanion = {
         end,
       },
     },
+  prompt_library = {
+    ["Fill YARD Tags"] = {
+      strategy = "chat",
+      description = "Add or complete YARD documentation tags for the selected code",
+      opts = {
+        modes = { "v" },
+        short_name = "yard",
+        auto_submit = true,
+      },
+      prompts = {
+        {
+          role = "system",
+          content = "You are an expert Ruby developer. Your task is to add or complete YARD documentation tags to the provided Ruby code. Add @param, @return, @raise, @yield, @example and other relevant YARD tags as appropriate. Only output the documented code, no explanations.",
+        },
+        {
+          role = "user",
+          content = function(context)
+            local code = require("codecompanion.helpers.actions").get_code(
+              context.start_line,
+              context.end_line
+            )
+            return "Add YARD documentation tags to the following Ruby code:\n\n```ruby\n" .. code .. "\n```"
+          end,
+        },
+      },
+    },
+  },
 }
 
 M.mason = {
