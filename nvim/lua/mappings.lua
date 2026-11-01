@@ -26,7 +26,4 @@ map("v", "<leader>ac", "<cmd>CodeCompanionChat add<CR>", { desc = "AI add select
 map({ "n", "v" }, "<leader>ai", "<cmd>CodeCompanion<CR>", { desc = "AI inline assist" })
 map({"n", "v" }, "<leader>aa", "<cmd>CodeCompanionActions<CR>", { desc = "AI actions" })
 
--- General keybinds
-map({"n", "v"}, "p", '"0p')
-map({"n", "v"}, '"0p', "p")
 

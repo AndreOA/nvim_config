@@ -78,6 +78,48 @@ return {
     -- I don't know why, but this is required or it won't load.
     opts = {},
   },
+-- nvim-cmp setup (Preserves NvChad defaults)
+  {
+    "hrsh7th/nvim-cmp",
+    opts = function(_, opts)
+      -- Optional: Set to false if you want to completely disable float documentation windows
+      -- opts.documentation = false
+      return opts
+    end,
+  },
+
+  -- nvim-autopairs setup with safety guards
+  {
+    "windwp/nvim-autopairs",
+    opts = {
+      fast_wrap = {},
+      disable_filetype = { "TelescopePrompt", "vim" },
+    },
+    config = function(_, opts)
+      local npairs = require("nvim-autopairs")
+      npairs.setup(opts)
+
+      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+      local cmp = require("cmp")
+
+      cmp.event:on("confirm_done", function(event)
+        -- Guard against missing or vim.NIL event payloads from Solargraph
+        if not event or not event.entry or event.entry == vim.NIL then
+          return
+        end
+
+        local completion_item = event.entry:get_completion_item()
+        if not completion_item or completion_item == vim.NIL or type(completion_item) ~= "table" then
+          return
+        end
+
+        local handler = cmp_autopairs.on_confirm_done()
+        if handler then
+          handler(event)
+        end
+      end)
+    end,
+  },
 
   -- test new blink
   -- { import = "nvchad.blink.lazyspec" },
